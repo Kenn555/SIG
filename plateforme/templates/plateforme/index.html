@@ -1,0 +1,81 @@
+{% extends "plateforme/base.html" %}
+
+{% block title %}Accueil{% endblock %}
+{% block menu_title %}Dashboard - {% endblock %}
+{% block section %}
+    <div class="menu-container">
+      <div class="menu">
+        <ul>
+          {% for dashboard in dashboards %}
+          <button id="{{dashboard.id}}" class='menu-btn'>{{dashboard.displayName}}</button>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <article>
+      <div class='content' id="dashboardItem-{{first_dashboard_item.id}}">
+        <div class="navbar bg-light">
+          <div class="nav-item py-1" style="margin-left: 20px;">
+            <b><h3 id="titleDashboardItem"></h3></b>
+          </div>
+          <ul class="nav">
+            <li class="nav-item py-1">
+              <div class="input-group date align-items-center" id="datepicker" style="width: 200px; margin: 10px 15px;">
+                <input type="text" class="form-control" placeholder="Filtre...">
+                <span class="input-group-append">
+                    <span class="input-group-text bg-white d-block">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                </span>
+              </div>
+            </li>
+            <li class="nav-item py-1 d-flex align-items-center">
+              <button id="add-btn" class="btn btn-primary align-items-center" style="margin-left: 5px; margin-right: 5px;">Ajouter</button>
+              <button id="reset-btn" class="btn btn-secondary align-items-center" style="margin-left: 5px; margin-right: 5px;">Rétablir</button>
+            </li>     
+          
+              <script type="text/javascript">
+                $(function() {
+                    // Initialisation du datepicker
+                    $('#datepicker').datepicker({
+                      viewMode: 'years',
+                      format: 'mm-yyyy',
+                      minViewMode: "months"
+                    });
+                });
+              </script>
+          </ul>
+        </div>
+
+        <script>
+          $('#titleDashboardItem').text("{{first_dashboard_item.displayName}}")
+          var idFirstDashboard = "{{first_dashboard_item.id}}";
+        </script>
+
+        <!-- Exemplaire du Bouton d'options -->
+        <div id="option-btn" class="dropdown ms-auto" style="display: inline-block; text-align: right; width: 35px; display: none;">
+          <button class="btn btn-sm btn-white border dropdown bg-light text-secondary" style="height: 30px; width: 35px;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span style="font-size: 14pt; font-weight: 800;">&middot;&middot;&middot;</span>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a id="reportTable" class="dropdown-item">Tableau Croisé Dynamic</a>
+          <a id="chart" class="dropdown-item">Graphique</a>
+          <a id="map" class="dropdown-item">Carte Géographique</a>
+          </div>
+        </div>
+
+        <div id="grid-container" class="container-fluid bg-light border rounded-3 py-1 overflow-auto" style="width: 98%; max-height: 700px;">
+          <!-- Lest Items -->
+        </div>
+      </div>
+
+      <script>
+        var url = "{% url 'action' %}";
+        var csrf_token = '{{ csrf_token }}';
+        var dashboards = {{dashboards|safe}};
+      </script>
+
+    </article>
+  
+{% endblock %}

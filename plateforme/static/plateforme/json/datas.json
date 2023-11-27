@@ -1,0 +1,21 @@
+[
+  {
+    "pTtBROuQV4b": {
+      "columns": [{ "pe": ["LAST_6_MONTHS"] }],
+      "rows": [{ "ou": ["MH5KHIQYZfs", "LEVEL-3"] }],
+      "filters": [{ "dx": ["mQEM6Pdzg8p.REPORTING_RATE_ON_TIME"] }]
+    },
+    "YQ6ZXKnDGE8": {
+      "columns": [{ "pe": ["LAST_6_MONTHS"] }],
+      "rows": [{ "ou": ["kPG7EKqojrg", "LEVEL-3"] }],
+      "filters": [{ "dx": ["mQEM6Pdzg8p.REPORTING_RATE"] }]
+    }
+  },
+  { "data": "#0", "title": "" },
+  { "data": "202305", "title": "Mai 2023" },
+  { "data": "202306", "title": "Juin 2023" },
+  { "data": "202307", "title": "Juillet 2023" },
+  { "data": "202308", "title": "Août 2023" },
+  { "data": "202309", "title": "Septembre 2023" },
+  { "data": "202310", "title": "Octobre 2023" }
+]

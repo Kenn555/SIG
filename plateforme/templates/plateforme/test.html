@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tableau DataTables</title>
+    <!-- Inclure les bibliothèques DataTables et Bootstrap5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+</head>
+<body>
+    <div class="input-group date" id="datepicker" style="width: 200px; margin: 10px 15px;">
+        <input type="text" class="form-control">
+        <span class="input-group-append">
+            <span class="input-group-text bg-white d-block">
+                <i class="fa fa-calendar"></i>
+            </span>
+        </span>
+    </div>
+
+    <button id="ajouterBtn" class="btn btn-primary">Ajouter</button>
+
+    <script type="text/javascript">
+        $(function() {
+            // Initialisation du datepicker
+            $('#datepicker').datepicker();
+    
+            // Gestionnaire d'événement sur le bouton "Ajouter"
+            $('#ajouterBtn').on('click', function() {
+                // Récupération de la date sélectionnée
+                var filter = $('input').val();
+                
+                // Affichage de la date dans la console à titre d'exemple
+                console.log('Date sélectionnée :', filter);
+            });
+        });
+    </script>
+
+    <iframe src="https://ministere-sante.mg/dhis-web-data-visualizer/plugin.html" style="width: 1809px; height: 240px; border: none;"></iframe>
+
+    <script> 
+        tablePlugin.load({ url: 'https://ministere-sante.mg',el: 'table1',id: 'pBOMPrpg1QX', width: 500, height: 300}); 
+    </script>
+
+    <div style="width: 500px;">
+        <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+
+    
+        var columns = [
+        {'data': '#0', 'title': ''},
+        {'data': '202305', 'title': 'Mai 2023'},
+        {'data': '202306', 'title': 'Juin 2023'},
+        {'data': '202307', 'title': 'Juillet 2023'},
+        {'data': '202308', 'title': 'Août 2023'},
+        {'data': '202309', 'title': 'Septembre 2023'},
+        {'data': '202310', 'title': 'Octobre 2023'}
+        ];
+
+        var data = [
+        {'#0': 'Ambatofinandrahana', '202305': '100', '202306': '100', '202307': '96.4', '202310': '85.7', '202309': '96.4', '202308': '100'},
+        {'#0': 'Ambositra', '202306': '100', '202305': '100', '202309': '96.1', '202308': '100', '202307': '100', '202310': '0'},
+        {'#0': 'Fandriana', '202307': '97.8', '202308': '100', '202309': '97.7', '202310': '4.5', '202305': '97.8', '202306': '97.8'},
+        {'#0': 'Manandriana', '202306': '100', '202305': '100', '202307': '100', '202310': '0', '202308': '100', '202309': '100'}
+        ];
+
+        var chartData = {
+        labels: data.map(entry => entry['#0']),
+        datasets: columns.slice(1).map(column => {
+            return {
+                label: column.title,
+                data: data.map(entry => entry[column.data])
+            };
+        })
+        };
+
+        console.log(chartData)
+    
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['foo', 'bar'],
+                datasets: [{
+                data: [42, 24]
+                }]
+            },
+            options: {
+                plugins: {
+                    labels: {
+                        render: 'value',
+                    }
+                }
+            }
+            });
+
+
+    //     console.log(chartData);
+
+    
+    // (async function() {
+    //     new Chart(
+    //         document.getElementById('myChart'),
+    //         {
+    //         type: 'bar',
+    //         data: chartData
+    //         }
+    //     );
+    //     })();
+    </script>
+  
+    <div id="option-btn" class="dropdown ms-auto">
+        <button class="btn btn-sm btn-secondary dropdown" style="height: 40px; width: 40px;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span style="font-size: 14pt; font-weight: 800;">&middot&middot&middot</span>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    </div>
+
+    <div class="input-append date" id="datepicker" data-date="02-2023" data-date-format="mm-yyyy">
+        <input  type="text" name="date" >    
+        <span class="add-on"><i class="icon-th"></i></span>      
+    </div>      
+
+    <script>
+        $("#datepicker").datepicker();
+    </script>
+
+
+    <div id="gd-container" class="container">
+        <script>
+            for (var i = 0; i < 7; i++) {
+                var container = $('<div class="container bg-primary d-flex"></div>');
+                
+                // Ajouter le titre à gauche
+                var title = $('<div class="mr-auto">Titre à gauche</div>');
+                container.append(title);
+                
+                // Ajouter le bouton dropdown à droite
+                var dropdown = $('#option-btn').clone();
+                dropdown.css('margin', '0 5px'); // Ajuster la marge
+                container.append(dropdown);
+                
+                // Ajouter le conteneur au gd-container
+                $('#gd-container').append(container);
+            }
+        </script>
+    </div>
+      
+    <!-- Créer un élément de tableau HTML avec un identifiant unique -->
+    <div class="container-fluid mt-3 border" style="width: 98%;">
+        <div class="row">
+          <div class="col p-3 bg-primary text-white">
+            <div style="width:35%; margin: 20px;">
+                <table id="monTableau" class="display table table-striped compact">
+                    <thead>
+                        <tr>
+                            <th colspan="6">Contact</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+        
+                </table>
+            </div>
+        </div>
+        <div class="col p-3 bg-dark text-white">
+            <div style="width:35%; margin: 20px;">
+                <table id="monTableau2" class="display table table-striped compact">
+                    <thead>
+                        <tr>
+                            <th colspan="6">Contact</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+        
+                </table>
+            </div>
+        </div>
+        <div class="col p-3 bg-primary text-white">
+            <div style="width:35%; margin: 20px;">
+                <table id="monTableau" class="display table table-striped compact">
+                    <thead>
+                        <tr>
+                            <th colspan="6">Contact</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+        
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Initialiser DataTables dans le script JavaScript -->
+    <script type="text/javascript">
+        
+        $(document).ready(function() {
+            $('#monTableau').DataTable({
+                "paging": false,
+                "data": [
+                {'#0': 'Ambatondrazaka', '202308': '97.1', '202309': '97.1', '202306': '98.5', '202305': '98.5', '202307': '98.5', '202310': '13'}, {'#0': 'Amparafaravola', '202305': '100', '202307': '100', '202308': '100', '202306': '100', '202309': '100', '202310': '29.3'}, {'#0': 'Andilamena', '202309': '100', '202307': '95.2', '202308': '90.5', '202306': '100', '202305': '100', '202310': '0'}, {'#0': "Anosibe An'ala", '202310': '0', '202309': '95.8', '202308': '91.7', '202306': '100', '202305': '95.8', '202307': '91.7'}, {'#0': 'Moramanga', '202309': '100', '202308': '100', '202306': '100', '202307': '100', '202305': '98.6', '202310': '0'}
+                ],
+                "columns": [
+                { "data": "#0", "title": "" },
+                { "data": "202305", "title": "Mai 2023" },
+                { "data": "202306", "title": "Juin 2023" },
+                { "data": "202307", "title": "Juillet 2023" },
+                { "data": "202308", "title": "Août 2023" },
+                { "data": "202309", "title": "Septembre 2023" },
+                { "data": "202310", "title": "Octobre 2023" }
+                ]
+            });
+            $('#monTableau2').DataTable({
+                "paging": false,
+                "data": [
+                {'#0': 'Ambatofinandrahana', '202305': '100', '202306': '100', '202307': '96.4', '202310': '25', '202309': '96.4', '202308': '100'}, {'#0': 'Ambositra', '202306': '100', '202305': '100', '202309': '96.1', '202308': '100', '202307': '100', '202310': '0'}, {'#0': 'Fandriana', '202307': '97.8', '202308': '100', '202309': '97.7', '202310': '0', '202305': '97.8', '202306': '97.8'}, {'#0': 'Manandriana', '202306': '100', '202305': '100', '202307': '100', '202310': '0', '202308': '100', '202309': '100'}
+                ],
+                "columns": [
+                {'data': '#0', 'title': ''}, {'data': '202305', 'title': 'Mai 2023'}, {'data': '202306', 'title': 'Juin 2023'}, {'data': '202307', 'title': 'Juillet 2023'}, {'data': '202308', 'title': 'Août 2023'}, {'data': '202309', 'title': 'Septembre 2023'}, {'data': '202310', 'title': 'Octobre 2023'}
+                ]
+            });
+            });
+    </script>
+</body>
+</html>

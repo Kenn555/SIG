@@ -1,0 +1,90 @@
+{
+  "headers": [
+    {
+      "name": "pe",
+      "column": "Period",
+      "valueType": "TEXT",
+      "type": "java.lang.String",
+      "hidden": false,
+      "meta": true
+    },
+    {
+      "name": "ou",
+      "column": "Organisation unit",
+      "valueType": "TEXT",
+      "type": "java.lang.String",
+      "hidden": false,
+      "meta": true
+    },
+    {
+      "name": "value",
+      "column": "Value",
+      "valueType": "NUMBER",
+      "type": "java.lang.Double",
+      "hidden": false,
+      "meta": false
+    }
+  ],
+  "metaData": {
+    "items": {
+      "mQEM6Pdzg8p.REPORTING_RATE": {
+        "name": "Nouveau Formulaire RMA CSB - Reporting rate"
+      },
+      "202309": { "name": "Septembre 2023" },
+      "ou": { "name": "Organisation unit" },
+      "202307": { "name": "Juillet 2023" },
+      "202308": { "name": "Août 2023" },
+      "202305": { "name": "Mai 2023" },
+      "202306": { "name": "Juin 2023" },
+      "QYXSay8tVtX": { "name": "Ambositra" },
+      "202310": { "name": "Octobre 2023" },
+      "LAST_6_MONTHS": { "name": "6 derniers mois" },
+      "Qv7lOyPCuJ1": { "name": "Manandriana" },
+      "dx": { "name": "Data" },
+      "obsFQeNciQM": { "name": "Ambatofinandrahana" },
+      "pe": { "name": "Period" },
+      "FcdNA0dnLPs": { "name": "Fandriana" },
+      "sSDIBMoRBPf": { "uid": "sSDIBMoRBPf", "name": "District" },
+      "kPG7EKqojrg": {
+        "uid": "kPG7EKqojrg",
+        "code": "22",
+        "name": "Amoron'i Mania"
+      }
+    },
+    "dimensions": {
+      "dx": ["mQEM6Pdzg8p.REPORTING_RATE"],
+      "pe": ["202305", "202306", "202307", "202308", "202309", "202310"],
+      "ou": ["obsFQeNciQM", "QYXSay8tVtX", "FcdNA0dnLPs", "Qv7lOyPCuJ1"],
+      "co": []
+    }
+  },
+  "rows": [
+    ["202305", "obsFQeNciQM", "100"],
+    ["202306", "QYXSay8tVtX", "100"],
+    ["202307", "FcdNA0dnLPs", "97.8"],
+    ["202306", "obsFQeNciQM", "100"],
+    ["202307", "obsFQeNciQM", "96.4"],
+    ["202305", "QYXSay8tVtX", "100"],
+    ["202308", "FcdNA0dnLPs", "100"],
+    ["202309", "QYXSay8tVtX", "96.1"],
+    ["202306", "Qv7lOyPCuJ1", "100"],
+    ["202308", "QYXSay8tVtX", "100"],
+    ["202309", "FcdNA0dnLPs", "97.7"],
+    ["202305", "Qv7lOyPCuJ1", "100"],
+    ["202307", "QYXSay8tVtX", "100"],
+    ["202310", "QYXSay8tVtX", "0"],
+    ["202310", "FcdNA0dnLPs", "0"],
+    ["202310", "obsFQeNciQM", "25"],
+    ["202309", "obsFQeNciQM", "96.4"],
+    ["202307", "Qv7lOyPCuJ1", "100"],
+    ["202308", "obsFQeNciQM", "100"],
+    ["202310", "Qv7lOyPCuJ1", "0"],
+    ["202305", "FcdNA0dnLPs", "97.8"],
+    ["202308", "Qv7lOyPCuJ1", "100"],
+    ["202309", "Qv7lOyPCuJ1", "100"],
+    ["202306", "FcdNA0dnLPs", "97.8"]
+  ],
+  "height": 24,
+  "width": 3,
+  "headerWidth": 3
+}

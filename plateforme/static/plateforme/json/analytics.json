@@ -1,0 +1,350 @@
+{
+    "headers": [
+        {
+            "name": "dx",
+            "column": "Data",
+            "valueType": "TEXT",
+            "type": "java.lang.String",
+            "hidden": false,
+            "meta": true
+        },
+        {
+            "name": "pe",
+            "column": "Period",
+            "valueType": "TEXT",
+            "type": "java.lang.String",
+            "hidden": false,
+            "meta": true
+        },
+        {
+            "name": "ou",
+            "column": "Organisation unit",
+            "valueType": "TEXT",
+            "type": "java.lang.String",
+            "hidden": false,
+            "meta": true
+        },
+        {
+            "name": "value",
+            "column": "Value",
+            "valueType": "NUMBER",
+            "type": "java.lang.Double",
+            "hidden": false,
+            "meta": false
+        }
+    ],
+    "metaData": {
+        "items": {
+            "jUb8gELQApl": {
+                "name": "Kailahun"
+            },
+            "PMa2VCrupOd": {
+                "name": "Kambia"
+            },
+            "ou": {
+                "name": "Organisation unit"
+            },
+            "OdiHJayrsKo": {
+                "name": "ANC 2 Coverage"
+            },
+            "O6uvpzGd5pu": {
+                "name": "Bo"
+            },
+            "2023Q2": {
+                "name": "April - June 2023"
+            },
+            "2022Q4": {
+                "name": "October - December 2022"
+            },
+            "2023Q3": {
+                "name": "July - September 2023"
+            },
+            "fdc6uOvgoji": {
+                "name": "Bombali"
+            },
+            "2023Q1": {
+                "name": "January - March 2023"
+            },
+            "dx": {
+                "name": "Data"
+            },
+            "pe": {
+                "name": "Period"
+            },
+            "LAST_4_QUARTERS": {
+                "name": "Last 4 quarters"
+            },
+            "Uvn6LCg7dVU": {
+                "name": "ANC 1 Coverage"
+            },
+            "lc3eMKXaEfw": {
+                "name": "Bonthe"
+            }
+        },
+        "dimensions": {
+            "dx": [
+                "Uvn6LCg7dVU",
+                "OdiHJayrsKo"
+            ],
+            "pe": [
+                "2022Q4",
+                "2023Q1",
+                "2023Q2",
+                "2023Q3"
+            ],
+            "ou": [
+                "O6uvpzGd5pu",
+                "fdc6uOvgoji",
+                "lc3eMKXaEfw",
+                "jUb8gELQApl",
+                "PMa2VCrupOd"
+            ],
+            "co": []
+        }
+    },
+    "rows": [
+        [
+            "Uvn6LCg7dVU",
+            "2022Q4",
+            "O6uvpzGd5pu",
+            "149.1"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2022Q4",
+            "fdc6uOvgoji",
+            "54.5"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2022Q4",
+            "lc3eMKXaEfw",
+            "35.8"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2022Q4",
+            "jUb8gELQApl",
+            "77.4"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2022Q4",
+            "PMa2VCrupOd",
+            "109.4"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2023Q1",
+            "O6uvpzGd5pu",
+            "129.5"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2023Q1",
+            "fdc6uOvgoji",
+            "84.0"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2023Q1",
+            "lc3eMKXaEfw",
+            "91.5"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2023Q1",
+            "jUb8gELQApl",
+            "78.2"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2023Q1",
+            "PMa2VCrupOd",
+            "98.0"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2023Q2",
+            "O6uvpzGd5pu",
+            "143.5"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2023Q2",
+            "fdc6uOvgoji",
+            "104.6"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2023Q2",
+            "lc3eMKXaEfw",
+            "118.2"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2023Q2",
+            "jUb8gELQApl",
+            "89.2"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2023Q2",
+            "PMa2VCrupOd",
+            "110.4"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2023Q3",
+            "O6uvpzGd5pu",
+            "161.9"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2023Q3",
+            "fdc6uOvgoji",
+            "87.0"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2023Q3",
+            "lc3eMKXaEfw",
+            "115.6"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2023Q3",
+            "jUb8gELQApl",
+            "83.0"
+        ],
+        [
+            "Uvn6LCg7dVU",
+            "2023Q3",
+            "PMa2VCrupOd",
+            "95.8"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2022Q4",
+            "O6uvpzGd5pu",
+            "132.4"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2022Q4",
+            "fdc6uOvgoji",
+            "51.3"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2022Q4",
+            "lc3eMKXaEfw",
+            "35.4"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2022Q4",
+            "jUb8gELQApl",
+            "83.3"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2022Q4",
+            "PMa2VCrupOd",
+            "95.3"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2023Q1",
+            "O6uvpzGd5pu",
+            "127.0"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2023Q1",
+            "fdc6uOvgoji",
+            "73.9"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2023Q1",
+            "lc3eMKXaEfw",
+            "85.1"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2023Q1",
+            "jUb8gELQApl",
+            "76.9"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2023Q1",
+            "PMa2VCrupOd",
+            "91.9"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2023Q2",
+            "O6uvpzGd5pu",
+            "156.5"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2023Q2",
+            "fdc6uOvgoji",
+            "85.1"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2023Q2",
+            "lc3eMKXaEfw",
+            "110.3"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2023Q2",
+            "jUb8gELQApl",
+            "97.9"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2023Q2",
+            "PMa2VCrupOd",
+            "97.7"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2023Q3",
+            "O6uvpzGd5pu",
+            "151.9"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2023Q3",
+            "fdc6uOvgoji",
+            "73.7"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2023Q3",
+            "lc3eMKXaEfw",
+            "115.2"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2023Q3",
+            "jUb8gELQApl",
+            "82.5"
+        ],
+        [
+            "OdiHJayrsKo",
+            "2023Q3",
+            "PMa2VCrupOd",
+            "93.0"
+        ]
+    ],
+    "width": 4,
+    "height": 40,
+    "headerWidth": 4
+}

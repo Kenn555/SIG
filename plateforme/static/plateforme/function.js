@@ -148,7 +148,6 @@ async function showTable(keyRow, keyCol){
   table.attr('id', 'Item-' + dataDashboard[keyRow][keyCol]['id']);
   table.show();
 
-  try {
     var data = { query: 'reportTable', datas: dataDashboard[keyRow][keyCol]};
     var dataItem = await getDataFromServer(data);
     console.log('ShowTable : ' + dataDashboard[keyRow][keyCol] + objetct.html());
@@ -165,12 +164,11 @@ async function showTable(keyRow, keyCol){
       "columns": dataItem['columns']
   });
 
-  } catch {
     console.error("Erreur de l'affichage du Graphique", error);
-  } finally {
+
     objetct.find('.spinner-border').remove();
     $('#' + dataDashboard[keyRow][keyCol]['id']).parent('.col-md').remove(loading);
-  }
+
 }
 
 async function getDashboardItem(idDashboardItem, filters = null, reset= false) {

@@ -4,6 +4,7 @@ var content = $('.content');
 var container = $('#grid-container') ;
 var dataDashboard = {};
 var curIdDashboard = idFirstDashboard;
+var periods = [];
 
 showElement();
 
@@ -14,9 +15,15 @@ getDashboardItem(curIdDashboard);
 // Gestionnaire d'événement sur le bouton "Ajouter"
 $('#add-btn').on('click', function() {
   // Récupération de la date sélectionnée
-  var filterSelected = $('input').val();
+  var filterSelected = $('#filter').val();
 
-  getDashboardItem(curIdDashboard, filterSelected, false);
+  let period = filterSelected.split('-');
+  period.reverse();
+  periods.push(period.join(''));
+  
+  console.log(periods); // Cela affichera le résultat dans la console
+
+  getDashboardItem(curIdDashboard);
   
   // Affichage de la date dans la console à titre d'exemple
   console.log('Date sélectionnée :', filterSelected);
@@ -26,7 +33,9 @@ $('#add-btn').on('click', function() {
 $('#reset-btn').on('click', function() {
 
   $('input').val('').attr('placeholder', 'Filtre...');
-  getDashboardItem(curIdDashboard, null, true);
+  periods.length = 0;
+
+  getDashboardItem(curIdDashboard);
 
 });
 
@@ -62,7 +71,15 @@ async function showChart(keyRow, keyCol){
   chart.attr('id', 'Item-' + dataDashboard[keyRow][keyCol]['id']);
   var ctx = chart[0].getContext('2d');
 
-  var data = { query: 'chart', datas: dataDashboard[keyRow][keyCol]};
+  
+  if (periods.length !== 0){
+    var data = { query: 'chart', datas: dataDashboard[keyRow][keyCol], filter: periods };
+    console.log('Filtered');
+  }else{
+    var data = { query: 'chart', datas: dataDashboard[keyRow][keyCol]};
+    console.log('Normal');
+  }
+
   var chartData = await getDataFromServer(data);
 
   objetct.append($('<div class="container overflow-auto justify-content-center align-items-center" style="max-width: 580px; max-height: 300px; margin: 0px"></div>').append(chart));
@@ -148,7 +165,14 @@ async function showTable(keyRow, keyCol){
   table.attr('id', 'Item-' + dataDashboard[keyRow][keyCol]['id']);
   table.show();
 
+  if (periods.length !== 0){
+    var data = { query: 'reportTable', datas: dataDashboard[keyRow][keyCol], filter: periods };
+    console.log('Filtered');
+  }else{
     var data = { query: 'reportTable', datas: dataDashboard[keyRow][keyCol]};
+    console.log('Normal');
+  }
+
     var dataItem = await getDataFromServer(data);
     console.log('ShowTable : ' + dataDashboard[keyRow][keyCol] + objetct.html());
     console.log(data);
@@ -171,7 +195,7 @@ async function showTable(keyRow, keyCol){
 
 }
 
-async function getDashboardItem(idDashboardItem, filters = null, reset= false) {
+async function getDashboardItem(idDashboardItem) {
   var overlay = $('<div class="d-flex justify-content-center align-items-center overlay position-absolute" style="z-index: 8;">\
     <div class="spinner-border text-primary" role="status" style="width: 7rem; height: 7rem;">\
       <span class="visually-hidden">Loading...</span>\
@@ -181,14 +205,11 @@ async function getDashboardItem(idDashboardItem, filters = null, reset= false) {
   $('.menu-btn').removeClass('bg-primary fw-bold text-white');
   $('#' + idDashboardItem).addClass('bg-primary fw-bold text-white');
 
-  try {
-    $("#titleDashboardItem").text($('#' + idDashboardItem).text()) 
-    console.log(filters, reset);
-    if (reset) {
-      var data = { query: 'dashboardItem', datas: idDashboardItem, reset: reset };
-      console.log('Resetted')
-    }else if (filters !== null){
-      var data = { query: 'dashboardItem', datas: idDashboardItem, filter: filters };
+
+    $("#titleDashboardItem").text($('#' + idDashboardItem).text())
+
+    if (periods.length !== 0){
+      var data = { query: 'dashboardItem', datas: idDashboardItem, filter: periods };
       console.log('Filtered')
     }else{
       var data = { query: 'dashboardItem', datas: idDashboardItem };
@@ -234,9 +255,7 @@ async function getDashboardItem(idDashboardItem, filters = null, reset= false) {
       container.append(row);
       content.children('h3').text($('#' + idDashboardItem).text());
     }
-  } catch {
-    console.error('Erreur lors de la récupération des données :', error);
-  } finally {
+
     overlay.remove();
     for (rowKey in dataDashboard){
       for (colKey in dataDashboard[rowKey]){
@@ -250,7 +269,7 @@ async function getDashboardItem(idDashboardItem, filters = null, reset= false) {
         }
       }
     }
-  }
+
 }
 
 function showElement() {
@@ -282,8 +301,14 @@ async function showMap(keyRow, keyCol){
   map_.css('width','575px')
   map_.css('height','300px')
 
-  
+  if (periods.length !== 0){
+    var data = { query: 'map', datas: dataDashboard[keyRow][keyCol], filter: periods };
+    console.log('Filtered');
+  }else{
     var data = { query: 'map', datas: dataDashboard[keyRow][keyCol]};
+    console.log('Normal');
+  }
+
     var statesData = await getDataFromServer(data);
     console.log('ShowMap : ' + dataDashboard[keyRow][keyCol] + objetct.html());
     console.log(data);

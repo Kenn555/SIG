@@ -16,8 +16,6 @@ config = ('Stagiaire_SEMIDSI', '2023@Dhis2')
 
 url_api = url_base + "/api/"
 
-periods = []
-
 def index(request):
     print('Dashbords...')
     dashboards = get_dashboards()
@@ -83,7 +81,7 @@ def reporttable_datas(response: dict)-> dict:
     print(data)
     return {'columns': columns, 'data': data}
 
-def get_analytic_values(dimension_datas):
+def get_analytic_values(dimension_datas, periods: list = []):
     analytic_param = "analytics?"
     for key in dimension_datas:
         if key == 'filters':
@@ -415,16 +413,6 @@ def action(request):
     if request.method == 'POST':
         data = dict(json.loads(request.body))
         print(data)
-
-        if 'filter' in  data:
-            print('filtered')
-            period = str(data['filter']).split('-')
-            period.reverse()
-            periods.append(''.join(period))
-        elif 'reset' in  data:
-            periods.clear()
-
-        print(periods)
         
         if data['query'] == "dashboardItem":
             # data['data'] doit contenir l'ID du dashboard
@@ -432,12 +420,20 @@ def action(request):
             # print(data)
         elif data['query'] == 'reportTable':
             # data['data'] doit contenir l'ID du dashboardItem
-            data = reporttable_datas(get_analytic_values(get_item_infos(data['datas'])))
-            pass
+            if 'filter' in  data:
+                data = reporttable_datas(get_analytic_values(get_item_infos(data['datas']), data['filter']))
+            else:
+                data = reporttable_datas(get_analytic_values(get_item_infos(data['datas'])))
         elif data['query'] == 'chart':
-            data = get_item_chart(reporttable_datas(get_analytic_values(get_item_infos(data['datas']))), data['datas'])
+            if 'filter' in  data:
+                data = get_item_chart(reporttable_datas(get_analytic_values(get_item_infos(data['datas']), data['filter'])), data['datas'])
+            else:
+                data = get_item_chart(reporttable_datas(get_analytic_values(get_item_infos(data['datas']))), data['datas'])
         elif data['query'] == 'map':
-            data = get_item_map(get_analytic_values(get_item_infos(data['datas'])), data['datas'])
+            if 'filter' in  data:
+                data = get_item_map(get_analytic_values(get_item_infos(data['datas']), data['filter']), data['datas'])
+            else:
+                data = get_item_map(get_analytic_values(get_item_infos(data['datas'])), data['datas'])
 
         return JsonResponse(data)
     return JsonResponse({'Erreur': 'Erreur !!!'})

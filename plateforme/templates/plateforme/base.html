@@ -27,9 +27,78 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 
-    <title>Document</title>
+    <title>Ministère de la Santé Publique Madagascar</title>
 </head>
-<body>
+<body>    
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+        <div class="modal-content">
+    
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h4 class="modal-title">Renseignement Personnel</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+    
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="/action/">
+                  <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" id="lastname" placeholder="Entrez votre nom" name="lastname">
+                    <label for="lastname">Nom</label>
+                  </div>
+                  <div class="form-floating mt-3 mb-3">
+                    <input type="text" class="form-control" id="firstname" placeholder="Entrez votre prénom" name="firstname">
+                    <label for="firstname">Prénom</label>
+                  </div>
+                  <div class="form-floating">
+                    <select class="form-select" id="structure" name="structure">
+                      <option>Informatique</option>
+                      <option>Administration</option>
+                      <option>Commerce</option>
+                      <option>Transport</option>
+                      <option>...</option>
+                    </select>
+                    <label for="structure" class="form-label">Structure :</label>
+                  </div>
+                  <div class="form-floating mt-3 mb-3">
+                    <input type="text" class="form-control" id="jobplace" placeholder="Lieu de travail" name="jobplace">
+                    <label for="jobplace">Lieu de Travail</label>
+                  </div>
+                  <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" id="phone" placeholder="Téléphone" name="phone">
+                    <label for="phone">Téléphone</label>
+                  </div>
+                  <div class="form-floating mt-3 mb-3">
+                    <input type="text" class="form-control" id="email" placeholder="Email" name="email">
+                    <label for="email">Email</label>
+                  </div>
+
+                  <button class="btn btn-primary">Valider</button>
+                </form>
+            </div>
+    
+        </div>
+        </div>
+    </div>
+
+    <script>
+        // Attendre que le DOM soit prêt
+        $(document).ready(function () {
+            // Sélectionner le modal par son ID
+            var modal = $('#myModal');
+
+            // Configurer le modal pour qu'il ne se ferme pas en cliquant à l'extérieur
+            modal.modal({
+                backdrop: 'static',
+                keyboard: false  // Optionnel : désactive la fermeture avec la touche "Échap"
+            });
+    
+            // Afficher le modal
+            modal.modal('show');
+        });
+    </script>
 
     <header>
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">

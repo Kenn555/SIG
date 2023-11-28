@@ -424,7 +424,10 @@ def save_form(data):
 
     data = {'message': 'Informations soumises !'}
 
-    if not existing_user:
+    if existing_user:
+        # Si l'utilisateur existe déjà, ajoutez simplement la soumission
+        Soumission.objects.create(information=existing_user)
+    else:
         # Si l'utilisateur n'existe pas, créez-le dans la table Visiteur
         new_user = Visiteur.objects.create(
             nom=nom,
@@ -436,8 +439,8 @@ def save_form(data):
         )
         data = {'message': 'Informations créées !!!'}
 
-    # Créez la soumission pour le nouvel utilisateur
-    Soumission.objects.create(information=new_user)
+        # Créez la soumission pour le nouvel utilisateur
+        Soumission.objects.create(information=new_user)
 
     print('Done !!!!!!!!!!!!!')
 

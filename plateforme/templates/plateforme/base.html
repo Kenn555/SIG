@@ -38,7 +38,6 @@
             <!-- Modal Header -->
             <div class="modal-header">
             <h4 class="modal-title">Renseignement Personnel</h4>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
     
             <!-- Modal body -->
@@ -84,10 +83,11 @@
     </div>
 
     <script>
+        var modal = $('#myModal');
+        
         // Attendre que le DOM soit prêt
         $(document).ready(function () {
             // Sélectionner le modal par son ID
-            var modal = $('#myModal');
 
             // Configurer le modal pour qu'il ne se ferme pas en cliquant à l'extérieur
             modal.modal({

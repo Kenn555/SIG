@@ -6,9 +6,9 @@ var dataDashboard = {};
 var curIdDashboard = idFirstDashboard;
 var periods = [];
 
-// showElement();
+showElement();
 
-// getDashboardItem(curIdDashboard);
+getDashboardItem(curIdDashboard);
 
 
             
@@ -68,6 +68,8 @@ async function validateAndSubmitForm() {
   const responseForm = getDataFromServer(dataForm)
 
   console.log(responseForm);
+  modal.remove();
+  $('.modal-backdrop').remove();
 }
 
 async function getDataFromServer(data) {

@@ -8,12 +8,13 @@ admin.site.site_header = _("KENN SITE")
 admin.site.index_title = _("KENN SITE")
 
 class VisiteurAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nom', 'prenom', 'structure', 'lieu_travail', 'telephone', 'email')
+    list_display = ('nom', 'prenom', 'structure', 'lieu_travail', 'telephone', 'email')
     list_filter = ('structure', 'lieu_travail')
     search_fields = ('nom', 'prenom',)
 
 class SoumissionAdmin(admin.ModelAdmin):
     list_display = ('information', 'date_soumission')
+    list_filter = ('information',)
 
 # Register your models here.
 admin.site.register(Visiteur, VisiteurAdmin)

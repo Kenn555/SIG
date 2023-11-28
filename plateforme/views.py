@@ -3,6 +3,7 @@ from statistics import mean
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 import requests
+from .models import Visiteur, Soumission
 
 # Create your views here.
 
@@ -409,6 +410,39 @@ def get_item_chart(data, info):
 
     return chart_data
 
+def save_form(data):
+    nom = data['nom']
+    prenom = data['prenom']
+    structure = data['structure']
+    lieu_travail = data['lieu_travail']
+    telephone = data['telephone']
+    email = data['email']
+
+    # Vérifiez si l'utilisateur existe déjà dans la table Visiteur
+    print("Vérifiez si l'utilisateur existe déjà dans la table Visiteur...")
+    existing_user = Visiteur.objects.filter(email=email).first()
+
+    data = {'message': 'Informations soumises !'}
+
+    if not existing_user:
+        # Si l'utilisateur n'existe pas, créez-le dans la table Visiteur
+        new_user = Visiteur.objects.create(
+            nom=nom,
+            prenom=prenom,
+            structure=structure,
+            lieu_travail=lieu_travail,
+            telephone=telephone,
+            email=email
+        )
+        data = {'message': 'Informations créées !!!'}
+
+    # Créez la soumission pour le nouvel utilisateur
+    Soumission.objects.create(information=new_user)
+
+    print('Done !!!!!!!!!!!!!')
+
+    return data
+
 def action(request):
     if request.method == 'POST':
         data = dict(json.loads(request.body))
@@ -434,6 +468,9 @@ def action(request):
                 data = get_item_map(get_analytic_values(get_item_infos(data['datas']), data['filter']), data['datas'])
             else:
                 data = get_item_map(get_analytic_values(get_item_infos(data['datas'])), data['datas'])
+        elif data['query'] == 'form':
+            print('Form')
+            data = save_form(data['datas'])
 
         return JsonResponse(data)
     return JsonResponse({'Erreur': 'Erreur !!!'})

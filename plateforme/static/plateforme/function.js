@@ -6,9 +6,9 @@ var dataDashboard = {};
 var curIdDashboard = idFirstDashboard;
 var periods = [];
 
-showElement();
+// showElement();
 
-getDashboardItem(curIdDashboard);
+// getDashboardItem(curIdDashboard);
 
 
             
@@ -38,6 +38,37 @@ $('#reset-btn').on('click', function() {
   getDashboardItem(curIdDashboard);
 
 });
+
+async function validateAndSubmitForm() {
+  // Récupérez les valeurs des champs du formulaire
+  const nom = $('#lastname').val();
+  const prenom = $('#firstname').val();
+  const structure = $('#structure').val();
+  const lieu_travail = $('#jobplace').val();
+  const telephone = $('#phone').val();
+  const email = $('#email').val();
+
+  // Validez les champs du formulaire
+  if (!nom || !structure || !lieu_travail || !telephone || !email) {
+      return;
+  }
+
+  const dataForm = {query: 'form', datas:{
+      nom: nom,
+      prenom: prenom,
+      structure: structure,
+      lieu_travail: lieu_travail,
+      telephone: telephone,
+      email: email,
+    }
+  };
+
+  console.log(dataForm);
+
+  const responseForm = getDataFromServer(dataForm)
+
+  console.log(responseForm);
+}
 
 async function getDataFromServer(data) {
   try {

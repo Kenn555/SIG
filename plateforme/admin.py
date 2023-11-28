@@ -3,9 +3,9 @@ from .models import Visiteur, Soumission
 from django.utils.translation import gettext_lazy as _
 
 
-admin.site.site_title = _("KENN SITE")
-admin.site.site_header = _("KENN SITE")
-admin.site.index_title = _("KENN SITE")
+admin.site.site_title = _("Ministère de Santé Publique")
+admin.site.site_header = _("Administration")
+admin.site.index_title = _("Tables")
 
 class VisiteurAdmin(admin.ModelAdmin):
     list_display = ('nom', 'prenom', 'structure', 'lieu_travail', 'telephone', 'email')

@@ -123,6 +123,10 @@ def get_item_infos(items):
     path = items['href'].split('/')[-2] + "/" + items['href'].split('/')[-1]
 
     response = api_get_data(path)
+    
+    if response["type"] == "YEAR_OVER_YEAR_LINE":
+        items['yearlySeries'] = response["yearlySeries"]
+        pass
     # print(response)
 
     if items['type'] == "VISUALIZATION":
@@ -422,7 +426,7 @@ def get_item_chart(data, info):
             except KeyError:
                 continue
     else:
-        
+        print(info['yearlySeries'])
         dataset = {'label': datetime.date.today().year, 'data': []}
         for col in data['columns']:
             print(col)

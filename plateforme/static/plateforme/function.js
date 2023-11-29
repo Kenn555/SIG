@@ -221,8 +221,6 @@ async function showTable(keyRow, keyCol){
       "columns": dataItem['columns']
   });
 
-    console.error("Erreur de l'affichage du Graphique", error);
-
     objetct.find('.spinner-border').remove();
     $('#' + dataDashboard[keyRow][keyCol]['id']).parent('.col-md').remove(loading);
 
@@ -416,11 +414,11 @@ async function showMap(keyRow, keyCol){
   
   function getColor(d) {
       return d > 100 ? '#800026' :
-             d > 80  ? '#BD0026' :
-             d > 60  ? '#E31A1C' :
-             d > 40  ? '#FC4E2A' :
-             d > 20   ? '#FEB24C' :
-             d > 10   ? '#FED976' :
+             d > 96.2  ? '#BD0026' :
+             d > 92.4  ? '#E31A1C' :
+             d > 88.6  ? '#FC4E2A' :
+             d > 84.8   ? '#FEB24C' :
+             d > 81   ? '#FED976' :
                         '#FFEDA0';
   }
   
@@ -492,7 +490,7 @@ async function showMap(keyRow, keyCol){
   info.update = function (props) {
       this._div.innerHTML = (props ?
           '<b>' + props.name + '</b><br/>' + props.density
-          : 'Hover over a state');
+          : 'Survoler la zone');
   };
   
   info.addTo(map);
@@ -502,7 +500,7 @@ async function showMap(keyRow, keyCol){
   legend.onAdd = function (map) {
   
       var div = L.DomUtil.create('div', 'info legend'),
-          grades = [0, 10, 20, 40, 60, 80, 100],
+          grades = [81, 84.8, 88.6, 92.4, 96.2, 100],
           labels = [];
   
       // loop through our density intervals and generate a label with a colored square for each interval

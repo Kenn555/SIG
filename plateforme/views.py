@@ -1,3 +1,4 @@
+import datetime
 import json
 from statistics import mean
 from django.http import HttpResponse, JsonResponse
@@ -62,6 +63,8 @@ def reporttable_datas(response: dict)-> dict:
     if len(response['headers']) > 2:
         columns = [{"data": '#0', "title": ''}]
         for row in response['metaData']['dimensions'][response['headers'][1]['name']]:
+            if row.find('.'):
+                row = row.split('.')[0]
             row_titles += [{row: response['metaData']['items'][row]['name']}]
         if response['headers'][1]['name'] == 'ou':
             response['metaData']['dimensions'][response['headers'][1]['name']].sort()
@@ -70,13 +73,21 @@ def reporttable_datas(response: dict)-> dict:
             lieu_resultat = {'#0': list(info.items())[0][1]}
             for row in response['rows']:
                 if row[1] == list(info.items())[0][0]:
+                    if row[0].find('.'):
+                        row[0] = row[0].split('.')[0]
                     lieu_resultat[row[0]] = row[-1]
             data.append(lieu_resultat)
     else:
-        data += [{row[0]: row[-1]} for row in response['rows']]
+        for row in response['rows']:
+            if row[0].find('.'):
+                row[0] = row[0].split('.')[0]
+            data += [{row[0]: row[-1]} ]
 
     for column in response['metaData']['dimensions'][response['headers'][0]['name']]:
-        columns += [{"data": column, "title": response['metaData']['items'][column]['name']}]
+        if column.find('.'):
+            columns += [{"data": column.split('.')[0], "title": response['metaData']['items'][column]['name']}]
+        else:
+            columns += [{"data": column, "title": response['metaData']['items'][column]['name']}]
 
     print(columns)
     print(data)
@@ -388,9 +399,48 @@ def get_item_chart(data, info):
 
     # print()
     # print(chart_type)
+
+    # Récupération des labels
+    try:
+        chart_data['labels'] = [item['#0'] for item in data['data']]
+    except KeyError:
+        chart_data['labels'] = [item['title'] for item in data['columns']]
+        pass
+
+    print(data)
+    print()
+    print(info)
+
+    if chart_type != 'year_over_year_line'.upper():
+        # Récupération des datasets
+        for col in data['columns'][1:]:
+            print(col)
+            try:
+                dataset = {'label': col['title'], 'data': []}
+                dataset['data'] = [item[col['data']] for item in data['data']]
+                chart_data['datasets'].append(dataset)
+            except KeyError:
+                continue
+    else:
+        
+        dataset = {'label': datetime.date.today().year, 'data': []}
+        for col in data['columns']:
+            print(col)
+            for item in data['data']:
+                print(item)
+                try:
+                    print()
+                    dataset['data'] += [item[col['data']]]
+                except KeyError:
+                    continue
+            
+        chart_data['datasets'].append(dataset)
+    
     
     if chart_type == "COLUMN":
         chart_type = 'bar'
+    elif chart_type == 'year_over_year_line'.upper():
+        chart_type = 'line'
     else:
         chart_type = chart_type.lower()
     
@@ -399,14 +449,8 @@ def get_item_chart(data, info):
     
     # Conversion des données en format souhaité pour Chart.js
     chart_data['type'] = chart_type
-    # Récupération des labels
-    chart_data['labels'] = [item['#0'] for item in data['data']]
 
-    # Récupération des datasets
-    for col in data['columns'][1:]:
-        dataset = {'label': col['title'], 'data': []}
-        dataset['data'] = [item[col['data']] for item in data['data']]
-        chart_data['datasets'].append(dataset)
+    print(chart_data)
 
     return chart_data
 

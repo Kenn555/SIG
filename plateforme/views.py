@@ -37,7 +37,7 @@ def index(request):
 def api_get_data(path: str):
     url = url_api + path
 
-    if path.find('analytics?') == -1:
+    if path.find('dashboardItems') != -1:
         url += '?paging=false'
 
     print('Go to', url)
@@ -123,11 +123,15 @@ def get_item_infos(items):
     path = items['href'].split('/')[-2] + "/" + items['href'].split('/')[-1]
 
     response = api_get_data(path)
-    
-    if response["type"] == "YEAR_OVER_YEAR_LINE":
-        items['yearlySeries'] = response["yearlySeries"]
+
+    print(response)
+    try:
+        if response["type"] == "YEAR_OVER_YEAR_LINE":
+            items['yearlySeries'] = response["yearlySeries"]
+            pass
+        # print(response)
+    except KeyError:
         pass
-    # print(response)
 
     if items['type'] == "VISUALIZATION":
         dimension_parameter = {'columns': [],'rows': [],'filters': []}
@@ -343,21 +347,81 @@ def get_item_map(analytic: dict, info):
 
     print(info['id'])
 
+    '/legends?fields=startValue,endValue,color'
+
+    data_dimension_items = None
+    legend_set = None
+    response = None
+
     if info['type'] == 'VISUALIZATION':
         parent_geometry = requests.get(url= info['href'] + '/organisationUnits?fields=geometry', auth=config).json()['organisationUnits'][0]['geometry']
+        data_dimension_items = requests.get(info['href'] + '/dataDimensionItems', auth=config).json()
+        
+        if data_dimension_items != None :
+            try:
+                for data_dimension_item in data_dimension_items['dataDimensionItems']:
+                    print(data_dimension_item)
+                    if data_dimension_item['dataDimensionItemType'] == 'REPORTING_RATE':
+                        legend_ = api_get_data('dataSets/' + data_dimension_item['reportingRate']['dataSet']['id'] + '/legendSets')[0]['id']
+                    elif data_dimension_item['dataDimensionItemType'] == "DATA_ELEMENT":
+                        legend_ = api_get_data('dataElements/' + data_dimension_item[data_dimension_item['dataDimensionItemType'].lower()]['id'] + '/legendSets')[0]['id']
+                    else:
+                        legend_ = api_get_data(data_dimension_item['dataDimensionItemType'].lower() + 's/' + data_dimension_item[data_dimension_item['dataDimensionItemType'].lower()]['id'] + '/legendSets')[0]['id']
+            except KeyError:
+                pass
+
 
     elif info['type'] == 'MAP':
-        id_parent = requests.get(url= info['href'] + '/mapViews?fields=organisationUnits', auth=config).json()['mapViews'][0]['organisationUnits'][0]['id']
+        response = requests.get(url= info['href'] + '/mapViews?fields=organisationUnits,dataDimensionItems', auth=config).json()
+        print(response)
+        id_parent = response['mapViews'][0]['organisationUnits'][0]['id']
+        for mapview in response['mapViews']:
+            print(mapview)
+
+            try:
+                api_type = mapview['dataDimensionItems'][0]['dataDimensionItemType'].lower()
+            except IndexError:
+                continue
+
+            try:
+                if data_dimension_items != None:
+                    break
+                if mapview['dataDimensionItems'][0]['dataDimensionItemType'] == 'DATA_ELEMENT':
+                    api_type = 'dataElement'
+                elif mapview['dataDimensionItems'][0]['dataDimensionItemType'] == 'REPORTING_RATE':
+                    api_type = 'dataSet'
+                else:
+                    api_type = mapview['dataDimensionItems'][0]['dataDimensionItemType'].lower()
+
+                data_dimension_items = mapview['dataDimensionItems'][0][api_type]['id']
+            except IndexError:
+                continue
         parent_geometry = requests.get(url= url_api + 'organisationUnits/' + id_parent + '/geometry', auth=config).json()['geometry']
 
+        if data_dimension_items != None :
+            legend_ = api_get_data(api_type + 's/' + data_dimension_items + '/legendSets')['legendSets'][0]['id']
+    
+    try:
+        if data_dimension_items != None :
+            legend_set = api_get_data('/legendSets/' + legend_ + '/legends?fields=startValue,endValue,color')
+    except:
+        pass
+
+    print(data_dimension_items)
+    
     if parent_geometry['type'] == 'Polygon':
-        center =polygon_center(parent_geometry['coordinates'])
+        center = polygon_center(parent_geometry['coordinates'])
     elif parent_geometry['type'] == 'MultiPolygon':
-        center =multipolygon_center(parent_geometry['coordinates'])
+        center = multipolygon_center(parent_geometry['coordinates'])
         
     center.reverse()
+    try:
+        statesData = {"type": "FeatureCollection", "features": [], "center": center, "legends": legend_set['legends']}
+    except:
+        statesData = {"type": "FeatureCollection", "features": [], "center": center, "legends": legend_set}
 
-    statesData = {"type": "FeatureCollection", "features": [], "center": center}
+
+    print(analytic)
 
     for ou_item in analytic['metaData']['dimensions']['ou']:
         url = url_api + '/organisationUnits/' + ou_item + '?fields=name,geometry'

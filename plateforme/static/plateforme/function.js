@@ -410,17 +410,26 @@ async function showMap(keyRow, keyCol){
   ===================================================*/
   
   L.geoJSON(statesData).addTo(map);
-  
+
+  console.log(statesData);
   
   function getColor(d) {
+    if (statesData.legends != null){
+      for (const legend of statesData.legends) {
+        if (d >= legend.startValue && d <= legend.endValue) {
+          return legend.color;
+        }
+      }
+    } else {
       return d > 83.3 ? '#800026' :
-             d > 79.5  ? '#BD0026' :
-             d > 75.7  ? '#E31A1C' :
-             d > 71.9  ? '#FC4E2A' :
-             d > 68.1   ? '#FEB24C' :
-             d > 64.3   ? '#FED976' :
-                        '#FFEDA0';
-  }
+              d > 79.5  ? '#BD0026' :
+              d > 75.7  ? '#E31A1C' :
+              d > 71.9  ? '#FC4E2A' :
+              d > 68.1   ? '#FEB24C' :
+              d > 64.3   ? '#FED976' :
+                        '#FFEDA0';;
+                      }
+}
   
   function style(feature) {
       return {
@@ -496,11 +505,25 @@ async function showMap(keyRow, keyCol){
   info.addTo(map);
   
   var legend = L.control({position: 'bottomright'});
+
+  var grades = [];
   
+  if (statesData.legends != null){
+    const allValues = statesData.legends.reduce((acc, legend) => {
+      acc.push(legend.startValue, legend.endValue);
+      return acc;
+    }, []);
+
+    grades = [...new Set(allValues)].sort((a, b) => a - b);
+  } else {
+    grades = [64.3, 68.1, 71.9, 75.7, 79.5, 83.3]
+  };
+  
+  console.log('grades : ' + grades);
+
   legend.onAdd = function (map) {
   
-      var div = L.DomUtil.create('div', 'info legend'),
-          grades = [64.3, 68.1, 71.9, 75.7, 79.5, 83.3]
+      var div = L.DomUtil.create('div', 'info legend')
 
       // loop through our density intervals and generate a label with a colored square for each interval
       for (var i = 0; i < grades.length; i++) {

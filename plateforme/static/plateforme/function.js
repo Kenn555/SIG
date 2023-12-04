@@ -412,15 +412,15 @@ async function showMap(keyRow, keyCol){
   L.geoJSON(statesData).addTo(map);
   
   
-  // function getColor(d) {
-  //     return d > 83.3 ? '#800026' :
-  //            d > 79.5  ? '#BD0026' :
-  //            d > 75.7  ? '#E31A1C' :
-  //            d > 71.9  ? '#FC4E2A' :
-  //            d > 68.1   ? '#FEB24C' :
-  //            d > 64.3   ? '#FED976' :
-  //                       '#FFEDA0';
-  // }
+  function getColor(d) {
+      return d > 83.3 ? '#800026' :
+             d > 79.5  ? '#BD0026' :
+             d > 75.7  ? '#E31A1C' :
+             d > 71.9  ? '#FC4E2A' :
+             d > 68.1   ? '#FEB24C' :
+             d > 64.3   ? '#FED976' :
+                        '#FFEDA0';
+  }
   
   function style(feature) {
       return {

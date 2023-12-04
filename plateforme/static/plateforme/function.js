@@ -412,15 +412,15 @@ async function showMap(keyRow, keyCol){
   L.geoJSON(statesData).addTo(map);
   
   
-  function getColor(d) {
-      return d > 100 ? '#800026' :
-             d > 96.2  ? '#BD0026' :
-             d > 92.4  ? '#E31A1C' :
-             d > 88.6  ? '#FC4E2A' :
-             d > 84.8   ? '#FEB24C' :
-             d > 81   ? '#FED976' :
-                        '#FFEDA0';
-  }
+  // function getColor(d) {
+  //     return d > 83.3 ? '#800026' :
+  //            d > 79.5  ? '#BD0026' :
+  //            d > 75.7  ? '#E31A1C' :
+  //            d > 71.9  ? '#FC4E2A' :
+  //            d > 68.1   ? '#FEB24C' :
+  //            d > 64.3   ? '#FED976' :
+  //                       '#FFEDA0';
+  // }
   
   function style(feature) {
       return {
@@ -500,9 +500,8 @@ async function showMap(keyRow, keyCol){
   legend.onAdd = function (map) {
   
       var div = L.DomUtil.create('div', 'info legend'),
-          grades = [81, 84.8, 88.6, 92.4, 96.2, 100],
-          labels = [];
-  
+          grades = [64.3, 68.1, 71.9, 75.7, 79.5, 83.3]
+
       // loop through our density intervals and generate a label with a colored square for each interval
       for (var i = 0; i < grades.length; i++) {
           div.innerHTML +=
